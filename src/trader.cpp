@@ -27,8 +27,24 @@ void Trader::sell(Stock *_stock, unsigned int _quantity)
 {
     if (portfolio[_stock] >= _quantity)
     {
-        
+        totalPrice = _quantity * _stock->getPrice();
+        portfolio[_stock] -= _quantity;
+        money += totalPrice;
+        _stock->setNewSupply(_stock->getSupply() + _quantity);
+        cout << name << " sold " << _quantity <<  " " << _stock->getName() << " for " << totalPrice << ".00 Euros." << endl;
+        cout << _stock->getName() << " price is now " << _stock->getPrice();
     }
+}
+
+void newBuyOrder(Stock *_stock, unsigned int _quantity, unsigned int _price)
+{
+
+}
+
+
+void newSellOrder(Stock *_stock, unsigned int _quantity, unsigned int _price)
+{
+
 }
 
 void Trader::showOrders() const
