@@ -7,22 +7,27 @@ class Stock {
 
     public :
 
-    Stock(const string& _name, unsigned int _initialLiquidityPool, unsigned int _initialSuppl, unsigned int _liquidityPooly);
+    Stock(const string& _name, double _initialLiquidityPool, double _initialSupply);
 
     string getName() const;
-    unsigned int getPrice() const;
-    unsigned int getSupply() const;
-    unsigned int getLiquidityPool() const;
+    double getPrice() const;
+    double getSupply() const;
+    double getTotalSupply() const;
+    double getLiquidityPool() const;
+    bool getIsRunning() const;
 
-    void setNewPrice(unsigned int _supplyAmountBought);
-    void setNewSupply(unsigned int _newSupply);
+    void setNewPrice(double _supplyAmountBought, bool isBuying);
+    void setNewSupply(double _newSupply);
+    void updatePriceFromThread(double _newLiquidityPool);
+    void setIsRunning();
 
     private :
 
     string name;
-    unsigned int price;
-    unsigned int totalSupply;
-    unsigned int currentSupply;
-    unsigned int liquidityPool;
+    double price;
+    double totalSupply;
+    double currentSupply;
+    double liquidityPool;
+    bool isRunning;
 
 };

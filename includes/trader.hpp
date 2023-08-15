@@ -2,43 +2,49 @@
 #include <iostream>
 #include <map>
 #include <vector>
-
-#include "stock.hpp"
+#include "Stock.hpp"
 
 using namespace std;
 
 struct buyOrder {
     Stock* stock;
-    unsigned int quantity;
-    unsigned int price;
+    double quantity;
+    double price;
 };
 
 struct sellOrder {
     Stock* stock;
-    unsigned int quantity;
-    unsigned int price;
+    double quantity;
+    double price;
 };
 
 class Trader {
 
     public :
 
-    Trader(const string& _name, unsigned int _initialMoney)
+    Trader(const string& _name, double _initialMoney);
 
-    void buy(Stock *_stock, unsigned int _quantity);
-    void sell(Stock *_stock, unsigned int _quantity);
+    void buy(Stock *_stock, double _quantity);
+    void sell(Stock *_stock, double _quantity);
 
-    void newBuyOrder(Stock *_stock, unsigned int _quantity, unsigned int _price);
-    void newSellOrder(Stock *_stock, unsigned int _quantity, unsigned int _price);
+    void newBuyOrder(Stock *_stock, double _quantity, double _price);
+    void newSellOrder(Stock *_stock, double _quantity, double _price);
 
-    void showOrders() const;
+    bool executeBuyOrders();
+    bool executeSellOrders();
+
+    void showBuyOrders() const;
+    void showSellOrders() const;
     void showPortfolio() const;
+    string getName() const;
+    double getMoney() const;
+
 
     private :
 
     string name;
-    unsigned int money;
-    map<Stock*, unsigned int> portfolio;
+    double money;
+    map<Stock*, double> portfolio;
     vector<buyOrder> buyOrderBook;
     vector<sellOrder> sellOrderBook;
 

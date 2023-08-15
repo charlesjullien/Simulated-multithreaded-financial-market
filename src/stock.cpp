@@ -1,62 +1,71 @@
-#include "stock.hpp"
+#include "../includes/Stock.hpp"
 
-// Constructor
 
-Stock::Stock(const string& _name, unsigned int _initialLiquidityPool, unsigned int _initialSupply)
+Stock::Stock(const string& _name, double _initialLiquidityPool, double _initialSupply)
 {
     name = _name;
     totalSupply = _initialSupply;
     currentSupply = _initialSupply;
+    liquidityPool = _initialLiquidityPool;
     price = _initialLiquidityPool / _initialSupply;
 }
 
-// Getters
 
-string Stock::getName()
+string Stock::getName() const
 {
     return (name);
 }
 
-unsigned int Stock::getPrice()
+double Stock::getPrice() const
 {
-    price = liquidityPool / supply;
-    return (price);
+    return (liquidityPool / currentSupply);
 }
 
-unsigned int Stock::getSupply()
+double Stock::getSupply() const 
 {
     return (currentSupply);
 }
 
-unsigned int Stock::getLiquidityPool()
+double Stock::getTotalSupply() const 
+{
+    return (totalSupply);
+}
+
+double Stock::getLiquidityPool() const 
 {
     return (liquidityPool);
 }
 
-// Setters
-
-void Stock::setNewSupply(unsigned int _newSupply, bool isBuying)
+bool Stock::getIsRunning() const
 {
-    if (isBuying)
-        currentSupply -= _newSupply;
-    else
-        currentSupply += _newSupply; 
+    return (isRunning);
 }
 
-void Stock::setNewPrice(unsigned int _supplyAmountBought, bool isBuying)
+
+
+void Stock::setNewSupply(double _newSupply)
+{
+    currentSupply = _newSupply;
+}
+
+void Stock::setNewPrice(double _supplyAmountBought, bool isBuying)
 {
     if (isBuying)
-    {
-        setNewSupply(_supplyAmountBought, 1);
         liquidityPool += _supplyAmountBought * price;
-    }
     else
-    {
-        setNewSupply(_supplyAmountBought, 0);
         liquidityPool -= _supplyAmountBought * price;
-    }
-    price = getPrice();
+    price = liquidityPool / currentSupply;
 }
 
-// Others
+void Stock::updatePriceFromThread(double _newLiquidityPool)
+{
+    liquidityPool = _newLiquidityPool;
+    price = liquidityPool / currentSupply;
+}
+
+void Stock::setIsRunning()
+{
+    isRunning = true;
+}
+
 
