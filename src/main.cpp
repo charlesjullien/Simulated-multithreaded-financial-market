@@ -19,7 +19,7 @@ void simulateStockPriceChanges(Stock& stock, mutex& outputMutex)
 
     while (true)
     {
-        this_thread::sleep_for(chrono::seconds(20));
+        this_thread::sleep_for(chrono::seconds(15));
 
         double currentLiquidity = stock.getLiquidityPool();
         double percentageChange = dis(gen);
